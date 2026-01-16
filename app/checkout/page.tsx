@@ -95,25 +95,24 @@ export default function CheckoutPage() {
     setLoading(true);
 
     try {
-      const orderData = {
-        items: cart,
-        delivery_address: formData.delivery_address,
-        phone: formData.phone,
-        payment_method: formData.payment_method,
-      };
 
-      const result = await createOrder(orderData);
-
-      // If PayHere payment method is selected, redirect to payment page
+      // If PayHere payment method is selected, skip createOrder and redirect to payment page
       if (formData.payment_method === 'payhere') {
         // Save phone and address for the payment page
         localStorage.setItem('checkout_phone', formData.phone);
         localStorage.setItem('checkout_address', formData.delivery_address);
-        
-        // Redirect to the payment initialization page with order ID
-        window.location.href = `/checkout/payment?order_id=${result.order_id}`;
+        // Optionally, you may want to create a draft order here if your backend supports it
+        window.location.href = `/checkout/payment?cart=${encodeURIComponent(JSON.stringify(cart))}`;
         return;
       }
+
+      const orderData = {
+        items: cart,
+        delivery_address: formData.delivery_address,
+        phone: formData.phone,
+        payment_method: formData.payment_method, // Only allowed values reach here
+      };
+      const result = await createOrder(orderData);
 
       setSuccess(`✅ Order placed successfully! Order ID: ${result.order_id}`);
       setCart([]);
