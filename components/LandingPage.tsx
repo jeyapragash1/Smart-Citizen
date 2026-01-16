@@ -501,9 +501,11 @@ export default function LandingPage() {
             
             {/* Logo Area */}
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-800 rounded-lg flex items-center justify-center text-white font-bold">
-                SL
-              </div>
+              <img
+                src="/logo.jpeg"
+                alt="Smart Citizen Logo"
+                className="w-10 h-10 rounded-lg object-cover border border-gray-200 shadow-sm"
+              />
               <span className="text-xl font-bold text-blue-900 tracking-tight cursor-pointer">
                 SmartCitizen<span className="text-orange-600">.lk</span>
               </span>

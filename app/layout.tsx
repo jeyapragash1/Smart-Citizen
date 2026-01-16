@@ -25,14 +25,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/logo.jpeg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/logo.jpeg" />
+        {/* Removed favicon.ico to force browser to use logo.jpeg */}
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        
         {/* 2. Add the Floating Chatbot here */}
         <Chatbot />
-        
       </body>
     </html>
   );
