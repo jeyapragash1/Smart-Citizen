@@ -4,8 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { Bell, CheckCircle, AlertTriangle, Mail, Loader2 } from 'lucide-react';
 import { getNotifications, getSubscribers } from '@/lib/api';
 
+
 export default function NotificationsPage() {
   const [alerts, setAlerts] = useState<any[]>([]);
+  const [subscribers, setSubscribers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -15,9 +17,9 @@ export default function NotificationsPage() {
         setError('');
         const [notes, subs] = await Promise.all([getNotifications(), getSubscribers()]);
         setAlerts(Array.isArray(notes) ? notes : []);
-        setSubscribers(subs || []);
+        setSubscribers(Array.isArray(subs) ? subs : []);
       } catch (err: any) {
-        setError(err.message || 'Failed to load alerts');
+        setError(err?.message || 'Failed to load alerts');
         setAlerts([]);
         setSubscribers([]);
       } finally {
